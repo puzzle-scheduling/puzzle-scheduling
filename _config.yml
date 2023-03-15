@@ -5,7 +5,7 @@
 title: Puzzle Schedules
 author: Jonathan Alexander, Madalyn Li, Hannah Luebbering, Aishwarya Singh
 logo: _static/images/icons/puzzle2.png
-exclude_patterns: ["README.md"]
+exclude_patterns: ["README.md","join_hold_times_with_puzzle_features.ipynb"]
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -23,7 +23,7 @@ bibtex_bibfiles:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/hluebbering/puzzle-scheduling  # Online location of your book
+  url: https://github.com/puzzle-scheduling/  # Online location of your book
   # path_to_book: docs  # Optional path to your book, relative to the repository root
   branch: gh-pages  # Which branch of the repository should be used when creating links (optional)
 

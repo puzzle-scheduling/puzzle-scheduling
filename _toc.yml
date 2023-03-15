@@ -8,3 +8,4 @@ chapters:
 - file: Notebook2-DataCleaning
 - file: Notebook3-FeatureEngineering
 - file: Notebook4-FeatureImportance
+- file: Notebook5-perMemberLinReg
