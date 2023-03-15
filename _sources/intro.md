@@ -60,8 +60,6 @@ Hoefnagel Wooden Jigsaw Puzzle Club{cite}`HoefnagelWoodenJigsaw2020` is a compan
   <ul class="sidemenu-entry">
     <i class="fa fa-artistname" aria-hidden="true"></i>
     <code>Preliminary Exploratory Data Analysis </code>
-    <li cite="1.1">Members Data</li> 
-    <li cite="1.2">Packs Data</li>
   </ul>
 
   <ul class="sidemenu-entry">

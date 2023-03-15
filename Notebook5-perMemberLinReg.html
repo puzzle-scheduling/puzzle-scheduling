@@ -1,0 +1,1309 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5. Final Models per person &#8212; Puzzle Schedules</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/myfile.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="4. Feature Importances" href="Notebook4-FeatureImportance.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/puzzle2.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Puzzle Schedules</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Notebook1-EDA.html">
+   1. Preliminary Data Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Notebook2-DataCleaning.html">
+   2. Data Cleaning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Notebook3-FeatureEngineering.html">
+   3. Feature Engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Notebook4-FeatureImportance.html">
+   4. Feature Importances
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5. Final Models per person
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Hoefnagel Puzzles</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/puzzle-scheduling//gh-pages?urlpath=tree/Notebook5-perMemberLinReg.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/puzzle-scheduling/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/Notebook5-perMemberLinReg.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-regression-per-member">
+   5.1 Linear Regression per Member
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>5. Final Models per person</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-regression-per-member">
+   5.1 Linear Regression per Member
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="final-models-per-person">
+<h1>5. Final Models per person<a class="headerlink" href="#final-models-per-person" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">RobustScaler</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/df_cleaned.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#data = data[data.notna().all(axis=1)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>holdtime</th>
+      <th>puzzlepack</th>
+      <th>pack_name</th>
+      <th>piece_count_1</th>
+      <th>piece_count_2</th>
+      <th>difficulty_rating_1</th>
+      <th>difficulty_rating_2</th>
+      <th>brand_1</th>
+      <th>brand_2</th>
+      <th>num_puzzles</th>
+    </tr>
+    <tr>
+      <th>memberID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>member1</th>
+      <td>2.939411</td>
+      <td>Artifact Puzzles Justin Hillgrove Word Travels...</td>
+      <td>Artifact Puzzles Justin Hillgrove Word Travels...</td>
+      <td>456</td>
+      <td>548</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Artifact</td>
+      <td>Artifact</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>member1</th>
+      <td>0.998885</td>
+      <td>DaVici Puzzles Full Moon Feast DaVici Puzzles ...</td>
+      <td>DaVici Puzzles Full Moon Feast DaVici Puzzles ...</td>
+      <td>195</td>
+      <td>220</td>
+      <td>1</td>
+      <td>3</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>member1</th>
+      <td>10.865032</td>
+      <td>DaVici Puzzles Flying Frigate DaVici Puzzles H...</td>
+      <td>DaVici Puzzles Flying Frigate DaVici Puzzles H...</td>
+      <td>332</td>
+      <td>164</td>
+      <td>1</td>
+      <td>1</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>member1</th>
+      <td>22.083971</td>
+      <td>Liberty Puzzles Haeckel Hummingbirds Nautilus ...</td>
+      <td>Liberty Puzzles Haeckel Hummingbirds Nautilus ...</td>
+      <td>485</td>
+      <td>222</td>
+      <td>2</td>
+      <td>2</td>
+      <td>Liberty</td>
+      <td>Nautilus</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>member1</th>
+      <td>5.077603</td>
+      <td>DaVici Puzzles Diana Zimens City Of Cats</td>
+      <td>DaVici Puzzles Diana Zimens City Of Cats</td>
+      <td>700</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="linear-regression-per-member">
+<h2>5.1 Linear Regression per Member<a class="headerlink" href="#linear-regression-per-member" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">member_train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates train and test sets per member based on test_size</span>
+<span class="sd">    assumes rows are in time order so does not shuffle</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">train_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">test_size</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;memberID&#39;</span><span class="p">)</span>
+    <span class="n">train_flags</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">train_size</span>
+    <span class="n">test_flags</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">train_size</span>
+    
+    <span class="c1"># Split X and y (hold_time)</span>
+    <span class="n">X_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">train_flags</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;holdtime&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">X_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">test_flags</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;holdtime&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">y_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">train_flags</span><span class="p">]</span><span class="o">.</span><span class="n">holdtime</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">test_flags</span><span class="p">]</span><span class="o">.</span><span class="n">holdtime</span>
+    
+    <span class="k">return</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split train/test</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">member_train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hannah Luebbering\.conda\envs\cse160\lib\site-packages\ipykernel_launcher.py:8: FutureWarning: Dropping invalid columns in DataFrameGroupBy.transform is deprecated. In a future version, a TypeError will be raised. Before calling .transform, select only columns which should be valid for the transforming function.
+  
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\groupby\generic.py</span> in <span class="ni">_transform_general</span><span class="nt">(self, func, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1316</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1317</span>                 <span class="n">path</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_choose_path</span><span class="p">(</span><span class="n">fast_path</span><span class="p">,</span> <span class="n">slow_path</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1318</span>             <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\groupby\generic.py</span> in <span class="ni">_choose_path</span><span class="nt">(self, fast_path, slow_path, group)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1393</span>         <span class="n">path</span> <span class="o">=</span> <span class="n">slow_path</span>
+<span class="ne">-&gt; </span><span class="mi">1394</span>         <span class="n">res</span> <span class="o">=</span> <span class="n">slow_path</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1395</span> 
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\groupby\generic.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(group)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1382</span>             <span class="n">slow_path</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">group</span><span class="p">:</span> <span class="n">group</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+<span class="ne">-&gt; </span><span class="mi">1383</span>                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">func</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span>
+<span class="g g-Whitespace">   </span><span class="mi">1384</span>             <span class="p">)</span>
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\frame.py</span> in <span class="ni">apply</span><span class="nt">(self, func, axis, raw, result_type, args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">8739</span>         <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">8740</span>         <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">apply</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">8741</span> 
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\apply.py</span> in <span class="ni">apply</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">687</span> 
+<span class="ne">--&gt; </span><span class="mi">688</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_standard</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">689</span> 
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\apply.py</span> in <span class="ni">apply_standard</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">811</span>     <span class="k">def</span> <span class="nf">apply_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">812</span>         <span class="n">results</span><span class="p">,</span> <span class="n">res_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_series_generator</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">813</span> 
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\apply.py</span> in <span class="ni">apply_series_generator</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">827</span>                 <span class="c1"># ignore SettingWithCopy here in case the user mutates</span>
+<span class="ne">--&gt; </span><span class="mi">828</span>                 <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">829</span>                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ABCSeries</span><span class="p">):</span>
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\groupby\generic.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1382</span>             <span class="n">slow_path</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">group</span><span class="p">:</span> <span class="n">group</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+<span class="ne">-&gt; </span><span class="mi">1383</span>                 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">func</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span>
+<span class="g g-Whitespace">   </span><span class="mi">1384</span>             <span class="p">)</span>
+
+<span class="ne">TypeError</span>: &#39;int&#39; object is not callable
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="ne">C</span>:\conda_tmp\ipykernel_23096\731815928.py in &lt;module&gt;
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Split train/test</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">member_train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="nn">C:\conda_tmp\ipykernel_23096\48851854.py</span> in <span class="ni">member_train_test_split</span><span class="nt">(df, test_size)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">train_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">test_size</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">g</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;memberID&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">8</span>     <span class="n">train_flags</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">train_size</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">test_flags</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">g</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">train_size</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> 
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\groupby\generic.py</span> in <span class="ni">transform</span><span class="nt">(self, func, engine, engine_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1356</span>     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">engine_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1357</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform</span><span class="p">(</span>
+<span class="ne">-&gt; </span><span class="mi">1358</span>             <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">engine_kwargs</span><span class="o">=</span><span class="n">engine_kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1359</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1360</span> 
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\groupby\groupby.py</span> in <span class="ni">_transform</span><span class="nt">(self, func, engine, engine_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1468</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1469</span>             <span class="c1"># only reached for DataFrameGroupBy</span>
+<span class="ne">-&gt; </span><span class="mi">1470</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_general</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1471</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1472</span>     <span class="c1"># -----------------------------------------------------------------</span>
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\groupby\generic.py</span> in <span class="ni">_transform_general</span><span class="nt">(self, func, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1317</span>                 <span class="n">path</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_choose_path</span><span class="p">(</span><span class="n">fast_path</span><span class="p">,</span> <span class="n">slow_path</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1318</span>             <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1319</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_item_by_item</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">fast_path</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1320</span>             <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1321</span>                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;transform must return a scalar value for each group&quot;</span>
+
+<span class="nn">~\.conda\envs\cse160\lib\site-packages\pandas\core\groupby\generic.py</span> in <span class="ni">_transform_item_by_item</span><span class="nt">(self, obj, wrapper)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1446</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1447</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">output</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1448</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Transform function invalid for data types&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1449</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1450</span>         <span class="n">columns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">inds</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: Transform function invalid for data types
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Replaced with order based split to account for time</span>
+<span class="sd"># Split train/test</span>
+<span class="sd">X_train, X_test, y_train, y_test = train_test_split(data.drop(&#39;hold_time&#39;, axis=1), data[&#39;hold_time&#39;], random_state = 123)</span>
+<span class="sd">print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;\nReplaced with order based split to account for time\n# Split train/test\nX_train, X_test, y_train, y_test = train_test_split(data.drop(&#39;hold_time&#39;, axis=1), data[&#39;hold_time&#39;], random_state = 123)\nprint(X_train.shape, y_train.shape, X_test.shape, y_test.shape)\n&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dropping difficulty as difficulty should be encoded by splitting piece counts up by difficulty</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;diff_0&#39;</span><span class="p">,</span> <span class="s1">&#39;diff_1&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;diff_0&#39;</span><span class="p">,</span> <span class="s1">&#39;diff_1&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">X_train</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">X_train</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13132
+1094
+12038
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">X_test</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">X_test</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4703
+298
+4405
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Handle puzzles with no info, this is quite common</span>
+<span class="c1"># Drop them from training as to not introduce non-existant signal</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">X_train</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">X_train</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+
+<span class="c1"># Can&#39;t drop from test as we still need to predict something for these people</span>
+<span class="c1"># Try filling with median?</span>
+<span class="n">X_test_not_missing</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pieces_d1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">pieces_d1</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">pieces_d1</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pieces_d2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">pieces_d2</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">pieces_d2</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pieces_d3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">pieces_d3</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">pieces_d3</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pieces_d4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">pieces_d4</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">pieces_d4</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_test</span><span class="o">.</span><span class="n">num_puzzles</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">num_puzzles</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># just doing this manually as basically every pack has 2 puzzles</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate global distribution info for each puzzle</span>
+<span class="n">full_training_set</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">full_training_set</span><span class="p">[</span><span class="s1">&#39;hold_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">hold_summary_by_pack</span> <span class="o">=</span> <span class="n">full_training_set</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pack_name&#39;</span><span class="p">])[</span><span class="s1">&#39;hold_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+
+<span class="c1"># Some packs only have 1 data point so std dev is NaN, fill with avg std dev from the entire set</span>
+<span class="n">hold_summary_by_pack</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hold_summary_by_pack</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_pack</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="c1"># There are likely going to be instances in the test set where we don&#39;t have data for a pack, use the global averages for now</span>
+<span class="c1"># TODO come up with a more sophisticated way to handle packs we don&#39;t have data for</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span><span class="p">[</span><span class="n">X_test</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>member</th>
+      <th>pack_name</th>
+      <th>pieces_d1</th>
+      <th>pieces_d2</th>
+      <th>pieces_d3</th>
+      <th>pieces_d4</th>
+      <th>num_puzzles</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join the training data with the per pack info, just going to use mean and std for now</span>
+<span class="c1"># TODO try out other variations on pack hold-time distribution information</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">hold_summary_by_pack</span><span class="p">[[</span><span class="s1">&#39;count&#39;</span><span class="p">,</span><span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;pack_name&#39;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">[</span><span class="n">X_train</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>member</th>
+      <th>pack_name</th>
+      <th>pieces_d1</th>
+      <th>pieces_d2</th>
+      <th>pieces_d3</th>
+      <th>pieces_d4</th>
+      <th>num_puzzles</th>
+      <th>pack_hold_time_std</th>
+      <th>pack_hold_time_mean</th>
+      <th>pack_hold_time_count</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add pack hold_time avg and std dev from training set to test set data</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">hold_summary_by_pack</span><span class="p">[[</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;pack_name&#39;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># For packs from the test set with pack hold time data, fill with the means from the hold_time summary created using only training data</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_pack</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_pack</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_pack</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Similar hold time distribution info per member, if hold-time data not present use global avg</span>
+<span class="n">hold_summary_by_member</span> <span class="o">=</span> <span class="n">full_training_set</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;member&#39;</span><span class="p">)[</span><span class="s1">&#39;hold_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">hold_summary_by_member</span><span class="p">[[</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="s1">&#39;member_hold_time_count&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="s1">&#39;member_hold_time_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="s1">&#39;member_hold_time_std&#39;</span><span class="p">}),</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">hold_summary_by_member</span><span class="p">[[</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="s1">&#39;member_hold_time_count&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="s1">&#39;member_hold_time_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="s1">&#39;member_hold_time_std&#39;</span><span class="p">}),</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="c1"># For missing hold time summary data impute with global avg of the training set</span>
+<span class="c1">#Filling train</span>
+<span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member_hold_time_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member_hold_time_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_member</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member_hold_time_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member_hold_time_std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_member</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member_hold_time_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member_hold_time_count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_member</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="c1"># Filling test</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;member_hold_time_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;member_hold_time_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_member</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;member_hold_time_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;member_hold_time_std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_member</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;member_hold_time_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;member_hold_time_count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hold_summary_by_member</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hold_summary_by_member</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">hold_summary_by_pack</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot: title={&#39;center&#39;: &#39;mean&#39;}&gt;]], dtype=object)
+</pre></div>
+</div>
+<img alt="_images/Notebook5-perMemberLinReg_17_1.png" src="_images/Notebook5-perMemberLinReg_17_1.png" />
+<img alt="_images/Notebook5-perMemberLinReg_17_2.png" src="_images/Notebook5-perMemberLinReg_17_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plotting correlation heatmap</span>
+<span class="n">X_train_numeric</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">full_training_set</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;member&#39;</span><span class="p">)[</span><span class="s1">&#39;hold_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">X_train_numeric</span> <span class="o">=</span> <span class="n">X_train_numeric</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;member&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_train_numeric</span> <span class="o">=</span> <span class="n">X_train_numeric</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;hold_time&#39;</span><span class="p">:</span> <span class="s1">&#39;member_skew&#39;</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;skew_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;member_skew&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">X_train_numeric</span><span class="o">.</span><span class="n">member_hold_time_std</span>
+<span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;skew_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;member_skew&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">X_train_numeric</span><span class="o">.</span><span class="n">member_hold_time_std</span>
+<span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;pack_v_member&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_train_numeric</span><span class="o">.</span><span class="n">pack_hold_time_mean</span> <span class="o">-</span> <span class="n">X_train_numeric</span><span class="o">.</span><span class="n">member_hold_time_mean</span>
+<span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;member_dev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_train</span> <span class="o">-</span> <span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;member_hold_time_mean&#39;</span><span class="p">])</span>
+<span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;puzzle_dev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_train</span> <span class="o">-</span> <span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;pack_hold_time_mean&#39;</span><span class="p">])</span>
+<span class="n">X_train_numeric</span><span class="p">[</span><span class="s1">&#39;hold_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_train</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+<span class="n">dataplot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">X_train_numeric</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;YlGnBu&quot;</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  
+<span class="c1"># displaying heatmap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/vs/2pyq73711mgf5lg0y3w7rllm0000gn/T/ipykernel_9105/2997534890.py:12: FutureWarning: The default value of numeric_only in DataFrame.corr is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
+  dataplot = sns.heatmap(X_train_numeric.corr(), cmap=&quot;YlGnBu&quot;, annot=True)
+</pre></div>
+</div>
+<img alt="_images/Notebook5-perMemberLinReg_18_1.png" src="_images/Notebook5-perMemberLinReg_18_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_numeric</span><span class="o">.</span><span class="n">member_dev</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: &gt;
+</pre></div>
+</div>
+<img alt="_images/Notebook5-perMemberLinReg_19_1.png" src="_images/Notebook5-perMemberLinReg_19_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train_numeric</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;member_skew&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;member_dev&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;member_skew&#39;, ylabel=&#39;member_dev&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/Notebook5-perMemberLinReg_20_1.png" src="_images/Notebook5-perMemberLinReg_20_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dropping some things to see</span>
+<span class="c1">#X_train = X_train.drop([&#39;member_hold_time_mean&#39;, &#39;member_hold_time_std&#39;, &#39;member_hold_time_count&#39;, &#39;pack_hold_time_count&#39;], axis=1)</span>
+<span class="c1">#X_test = X_test.drop([&#39;member_hold_time_mean&#39;, &#39;member_hold_time_std&#39;, &#39;member_hold_time_count&#39;, &#39;pack_hold_time_count&#39;], axis=1)</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;pack_hold_time_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_hold_time_std&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_hold_time_count&#39;</span><span class="p">,</span> <span class="s1">&#39;num_puzzles&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;pack_hold_time_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_hold_time_std&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_hold_time_count&#39;</span><span class="p">,</span> <span class="s1">&#39;num_puzzles&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">record_counts</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">member</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">record_counts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>member557    132
+member474    106
+member40      87
+member414     85
+member292     85
+            ... 
+member13       1
+member642      1
+member645      1
+member649      1
+member520      1
+Name: member, Length: 619, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAX_STD</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">MIN_HISTORY</span> <span class="o">=</span> <span class="mi">75</span> <span class="c1"># Minimum number of data points for a member to get their own model</span>
+<span class="c1"># 3.6 / 13.2 @ 100</span>
+<span class="c1"># 3.5 / 12.9 @ 75</span>
+<span class="c1"># 5.5 / 14.2 @ 50</span>
+<span class="c1"># 8.5 / 17.2 @ 25</span>
+<span class="c1"># 11.6 / 22.3 @ 10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit Scaler on all training data</span>
+<span class="c1"># TODO Try out other scaler</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_name&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train_linear_regression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scaler</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Trains linear regression model using the given X, y, and scaler</span>
+<span class="sd">    </span>
+<span class="sd">    Returns the trained model</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">lr</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+    
+    <span class="c1"># Scale X</span>
+    <span class="n">X_s</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="c1">#X_s = X.to_numpy()</span>
+    <span class="c1"># Fit linear regression model</span>
+    <span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_s</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">lr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For each member with more than MIN_HISTORY data points, train a linear regression model for them and save</span>
+<span class="c1"># Filter to members with more than MIN_HISTORY points</span>
+<span class="n">members</span> <span class="o">=</span> <span class="n">record_counts</span><span class="p">[(</span><span class="n">record_counts</span> <span class="o">&gt;=</span> <span class="n">MIN_HISTORY</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">member</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">members</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># Require a max std in hold, only learn for people who seem stable</span>
+    <span class="n">member_std</span> <span class="o">=</span> <span class="n">hold_summary_by_member</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">member</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">member_std</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">MAX_STD</span><span class="p">:</span>
+        <span class="k">continue</span>
+        
+    <span class="n">X_train_m</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">member</span><span class="p">]</span>
+    <span class="n">y_train_m</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">member</span><span class="p">]</span>
+    
+    <span class="n">m</span> <span class="o">=</span> <span class="n">train_linear_regression</span><span class="p">(</span><span class="n">X_train_m</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_name&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train_m</span><span class="p">,</span> <span class="n">scaler</span><span class="p">)</span>
+    
+    <span class="c1"># Save model for later use</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;user_models/</span><span class="si">{</span><span class="n">member</span><span class="si">}</span><span class="s1">.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a overall model on all data points for use on users without MIN_HISTORY data points</span>
+<span class="n">overall_m</span> <span class="o">=</span> <span class="n">train_linear_regression</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_name&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">scaler</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;user_models/universal.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">overall_m</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create model just on users with less than MIN_HISTORY data points as a &quot;new puzzler&quot; model</span>
+<span class="n">newps</span> <span class="o">=</span> <span class="n">record_counts</span><span class="p">[</span><span class="n">record_counts</span> <span class="o">&lt;</span> <span class="n">MIN_HISTORY</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">X_train_newps</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">newps</span><span class="p">)]</span>
+<span class="n">y_train_newps</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;member&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">newps</span><span class="p">)]</span>
+<span class="n">newps_m</span> <span class="o">=</span> <span class="n">train_linear_regression</span><span class="p">(</span><span class="n">X_train_newps</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_name&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_train_newps</span><span class="p">,</span> <span class="n">scaler</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;user_models/newps.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">newps_m</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_pred</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    args:</span>
+<span class="sd">        - X - scaled input data</span>
+<span class="sd">        - member - member string</span>
+<span class="sd">        - default - default model to use</span>
+<span class="sd">        </span>
+<span class="sd">    Look up the proper model and use it, if not use default model</span>
+<span class="sd">    </span>
+<span class="sd">    Returns the (predicted hold time, the model used)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c1"># Check if trained model for member exists</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;user_models/</span><span class="si">{</span><span class="n">member</span><span class="si">}</span><span class="s1">.pkl&#39;</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">member</span><span class="p">)</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Use default model</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">default</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="s2">&quot;default&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Go through test set and either use the per user model or the universal model</span>
+<span class="n">univ_model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;user_models/universal.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+<span class="n">newps_model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;user_models/newps.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_name&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Universal Coef </span><span class="si">{</span><span class="n">univ_model</span><span class="o">.</span><span class="n">coef_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Newps Coef </span><span class="si">{</span><span class="n">newps_model</span><span class="o">.</span><span class="n">coef_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Scale test data using scaler fit on the training data</span>
+
+<span class="n">X_test_members</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;member&#39;</span><span class="p">]</span>
+<span class="n">X_test_packs</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;pack_name&#39;</span><span class="p">]</span>
+<span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="s1">&#39;pack_name&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1">#X_test_scaled = X_test.drop([&#39;member&#39;, &#39;pack_name&#39;], axis=1).to_numpy()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;pieces_d1&#39;, &#39;pieces_d2&#39;, &#39;pieces_d3&#39;, &#39;pieces_d4&#39;,
+       &#39;member_hold_time_count&#39;, &#39;member_hold_time_mean&#39;,
+       &#39;member_hold_time_std&#39;],
+      dtype=&#39;object&#39;)
+Universal Coef [ 1.96268797  2.39112375  2.62206506  1.53420493  0.1002531  10.32316364
+  0.17189966]
+Newps Coef [ 2.03889872  2.4608197   2.69484494  1.56316826  0.13466524 10.33005481
+  0.1730354 ]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_universal</span><span class="p">,</span> <span class="n">y_pred_universal_models</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">make_pred</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="n">univ_model</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">,</span> <span class="n">X_test_members</span><span class="p">)])</span>
+<span class="n">y_pred_universal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">y_pred_universal</span><span class="p">))</span>
+<span class="n">y_pred_universal_models</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">y_pred_universal_models</span><span class="p">))</span>
+<span class="n">mse_univ</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_universal</span><span class="p">)</span>
+<span class="n">mae_univ</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_universal</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using universal default combined mse: </span><span class="si">{</span><span class="n">mse_univ</span><span class="si">}</span><span class="s1">, mae: </span><span class="si">{</span><span class="n">mae_univ</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">mse_univ_usermodel</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">],</span> <span class="n">y_pred_universal</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+<span class="n">mae_univ_usermodel</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">],</span> <span class="n">y_pred_universal</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using universal, user mse: </span><span class="si">{</span><span class="n">mse_univ_usermodel</span><span class="si">}</span><span class="s1">, mae: </span><span class="si">{</span><span class="n">mae_univ_usermodel</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">mse_univ_default</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">],</span> <span class="n">y_pred_universal</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+<span class="n">mae_univ_default</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">],</span> <span class="n">y_pred_universal</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using universal, default mse: </span><span class="si">{</span><span class="n">mse_univ_default</span><span class="si">}</span><span class="s1">, mae: </span><span class="si">{</span><span class="n">mae_univ_default</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using universal default combined mse: 522.1756476380621, mae: 13.0212957291373
+Using universal, user mse: 62.98943021215402, mae: 4.625958495474126
+Using universal, default mse: 560.4676104826092, mae: 13.721390656247658
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_newps</span><span class="p">,</span> <span class="n">y_pred_newps_models</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">make_pred</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="n">newps_model</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">,</span> <span class="n">X_test_members</span><span class="p">)])</span>
+<span class="n">y_pred_newps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">y_pred_newps</span><span class="p">))</span>
+<span class="n">y_pred_newps_models</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">y_pred_newps_models</span><span class="p">))</span>
+<span class="n">mse_newps</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_newps</span><span class="p">)</span>
+<span class="n">mae_newps</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_newps</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using newps combined mse: </span><span class="si">{</span><span class="n">mse_newps</span><span class="si">}</span><span class="s1">, mae: </span><span class="si">{</span><span class="n">mae_newps</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">mse_newps_usermodel</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">],</span> <span class="n">y_pred_newps</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+<span class="n">mae_newps_usermodel</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">],</span> <span class="n">y_pred_newps</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using newps, user mse: </span><span class="si">{</span><span class="n">mse_newps_usermodel</span><span class="si">}</span><span class="s1">, mae: </span><span class="si">{</span><span class="n">mae_newps_usermodel</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">mse_newps_default</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">],</span> <span class="n">y_pred_newps</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+<span class="n">mae_newps_default</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">],</span> <span class="n">y_pred_newps</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Using newps, default mse: </span><span class="si">{</span><span class="n">mse_newps_default</span><span class="si">}</span><span class="s1">, mae: </span><span class="si">{</span><span class="n">mae_newps_default</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using newps combined mse: 522.0700482259101, mae: 13.021581398932065
+Using newps, user mse: 62.98943021215402, mae: 4.625958495474126
+Using newps, default mse: 560.3532050379303, mae: 13.721700148310497
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">y_pred_universal_models</span><span class="p">[</span><span class="n">y_pred_universal_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;member117&#39;,
+ &#39;member279&#39;,
+ &#39;member292&#39;,
+ &#39;member324&#39;,
+ &#39;member363&#39;,
+ &#39;member40&#39;,
+ &#39;member402&#39;,
+ &#39;member414&#39;,
+ &#39;member474&#39;,
+ &#39;member557&#39;,
+ &#39;member608&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">y_pred_newps_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">[(</span><span class="n">y_pred_newps_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X_test_not_missing</span><span class="p">)]))</span>
+<span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">[(</span><span class="n">y_pred_newps_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X_test_not_missing</span><span class="p">)],</span> <span class="n">y_pred_newps</span><span class="p">[(</span><span class="n">y_pred_newps_models</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X_test_not_missing</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4703
+362
+340
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.59828444364085
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;user_models/*&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">approaches</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Universal Deafult&quot;</span><span class="p">,</span> <span class="s2">&quot;New User Specific&quot;</span><span class="p">)</span>
+<span class="n">model_mae</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Combined&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">mae_univ</span><span class="p">,</span> <span class="n">mae_newps</span><span class="p">),</span>
+    <span class="s2">&quot;New Users&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">mae_univ_default</span><span class="p">,</span> <span class="n">mae_newps_default</span><span class="p">),</span>
+    <span class="s2">&quot;Established Users&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">mae_univ_usermodel</span><span class="p">,</span> <span class="n">mae_newps_usermodel</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">approaches</span><span class="p">))</span>  <span class="c1"># the label locations</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.25</span>  <span class="c1"># the width of the bars</span>
+<span class="n">multiplier</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="s1">&#39;constrained&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">model</span><span class="p">,</span> <span class="n">mae</span> <span class="ow">in</span> <span class="n">model_mae</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">multiplier</span>
+    <span class="n">rects</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">mae</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">rects</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">multiplier</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1"># Add some text for labels, title and custom x-axis tick labels, etc.</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;MAE (days)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;MAE by User Type and Default Model&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">width</span><span class="p">,</span> <span class="n">approaches</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Notebook5-perMemberLinReg_36_0.png" src="_images/Notebook5-perMemberLinReg_36_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Notebook4-FeatureImportance.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">4. Feature Importances</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Jonathan Alexander, Madalyn Li, Hannah Luebbering, Aishwarya Singh<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

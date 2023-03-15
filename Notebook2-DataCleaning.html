@@ -137,6 +137,11 @@ const thebe_selector_output = ".output, .cell_output"
    4. Feature Importances
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Notebook5-perMemberLinReg.html">
+   5. Final Models per person
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -196,7 +201,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/hluebbering/puzzle-scheduling/gh-pages?urlpath=tree/Notebook2-DataCleaning.ipynb"
+        <a href="https://mybinder.org/v2/gh/puzzle-scheduling//gh-pages?urlpath=tree/Notebook2-DataCleaning.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -230,7 +235,7 @@ title="Fullscreen mode"
   </span>
 
 </button>
-<a href="https://github.com/hluebbering/puzzle-scheduling"
+<a href="https://github.com/puzzle-scheduling/"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="bottom"
@@ -633,7 +638,10 @@ dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># puzzles with no second piece_count, make second piece count 0 </span>
 <span class="c1"># (because num_puzzle = 2 was dealt with earlier)</span>
-<span class="n">packs_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">packs_df</span><span class="p">[</span><span class="s1">&#39;piece_count_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">packs_df</span><span class="p">[</span><span class="s1">&#39;num_puzzles&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;piece_count_2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">packs_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">packs_df</span><span class="p">[</span><span class="s1">&#39;piece_count_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">packs_df</span><span class="p">[</span><span class="s1">&#39;num_puzzles&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s1">&#39;piece_count_2&#39;</span><span class="p">,</span>
+<span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
 </div>
@@ -1093,6 +1101,7 @@ dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_cleaned</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">df_cleaned</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_cleaned</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/joined_hold_times_data_all.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

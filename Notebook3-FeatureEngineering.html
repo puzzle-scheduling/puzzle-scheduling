@@ -135,6 +135,11 @@ const thebe_selector_output = ".output, .cell_output"
    4. Feature Importances
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Notebook5-perMemberLinReg.html">
+   5. Final Models per person
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -194,7 +199,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/hluebbering/puzzle-scheduling/gh-pages?urlpath=tree/Notebook3-FeatureEngineering.ipynb"
+        <a href="https://mybinder.org/v2/gh/puzzle-scheduling//gh-pages?urlpath=tree/Notebook3-FeatureEngineering.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -228,7 +233,7 @@ title="Fullscreen mode"
   </span>
 
 </button>
-<a href="https://github.com/hluebbering/puzzle-scheduling"
+<a href="https://github.com/puzzle-scheduling/"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="bottom"
@@ -387,7 +392,235 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_cleaned</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/df_cleaned.csv&#39;</span><span class="p">)</span>
-<span class="n">df_cleaned</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1"># member_info = pd.read_csv(&#39;data/member_holdtime_df.csv&#39;)</span>
+<span class="n">member_info</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[[</span><span class="s1">&#39;memberID&#39;</span><span class="p">,</span><span class="s1">&#39;holdtime&#39;</span><span class="p">,</span><span class="s1">&#39;puzzlepack&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">member_info</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">member_info</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+<span class="n">member_info</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 19387 entries, 0 to 19386
+Data columns (total 3 columns):
+ #   Column      Non-Null Count  Dtype  
+---  ------      --------------  -----  
+ 0   memberID    19387 non-null  object 
+ 1   holdtime    19387 non-null  float64
+ 2   puzzlepack  19387 non-null  object 
+dtypes: float64(1), object(2)
+memory usage: 454.5+ KB
+None
+memberID       object
+holdtime      float64
+puzzlepack     object
+dtype: object
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>memberID</th>
+      <th>holdtime</th>
+      <th>puzzlepack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>member1</td>
+      <td>2.939411</td>
+      <td>Artifact Puzzles Justin Hillgrove Word Travels...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>member1</td>
+      <td>0.998885</td>
+      <td>DaVici Puzzles Full Moon Feast DaVici Puzzles ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>member1</td>
+      <td>10.865032</td>
+      <td>DaVici Puzzles Flying Frigate DaVici Puzzles H...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>member1</td>
+      <td>22.083971</td>
+      <td>Liberty Puzzles Haeckel Hummingbirds Nautilus ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>member1</td>
+      <td>5.077603</td>
+      <td>DaVici Puzzles Diana Zimens City Of Cats</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="first-feature-is-number-of-pieces-for-each-difficulty-d1-d2-d3-d4">
+<h2>First feature is number of pieces for each difficulty d1, d2, d3, d4<a class="headerlink" href="#first-feature-is-number-of-pieces-for-each-difficulty-d1-d2-d3-d4" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># taking code from jon&#39;s branch</span>
+<span class="n">pieces_by_difficulty</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df_cleaned</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;pack_name&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;pieces_d1&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;pieces_d2&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;pieces_d3&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;pieces_d4&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;num_puzzles&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;num_puzzles&#39;</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">]):</span>
+        <span class="n">out</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;pieces_d</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;difficulty_rating_1&quot;</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;num_puzzles&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">out</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;pieces_d</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;difficulty_rating_2&quot;</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;piece_count_2&#39;</span><span class="p">]</span>
+
+    <span class="n">pieces_by_difficulty</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">puzzle_piece_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pieces_by_difficulty</span><span class="p">)</span>
+<span class="n">puzzle_piece_info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/pieces_by_puzzle_and_difficulty.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove_input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pieces_d1</th>
+      <th>pieces_d2</th>
+      <th>pieces_d3</th>
+      <th>pieces_d4</th>
+      <th>num_puzzles</th>
+      <th>puzzlepack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>456</td>
+      <td>548</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Artifact Puzzles Justin Hillgrove Word Travels...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>195</td>
+      <td>0</td>
+      <td>220</td>
+      <td>0</td>
+      <td>2</td>
+      <td>DaVici Puzzles Full Moon Feast DaVici Puzzles ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>496</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>DaVici Puzzles Flying Frigate DaVici Puzzles H...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>707</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Liberty Puzzles Haeckel Hummingbirds Nautilus ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>700</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>DaVici Puzzles Diana Zimens City Of Cats</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hold_times_joined</span> <span class="o">=</span> <span class="n">member_info</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">puzzle_piece_info</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;puzzlepack&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;puzzlepack&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">hold_times_joined</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 713169 entries, 0 to 713168
+Data columns (total 8 columns):
+ #   Column       Non-Null Count   Dtype  
+---  ------       --------------   -----  
+ 0   memberID     713169 non-null  object 
+ 1   holdtime     713169 non-null  float64
+ 2   puzzlepack   713169 non-null  object 
+ 3   pieces_d1    713169 non-null  int64  
+ 4   pieces_d2    713169 non-null  int64  
+ 5   pieces_d3    713169 non-null  int64  
+ 6   pieces_d4    713169 non-null  int64  
+ 7   num_puzzles  713169 non-null  int64  
+dtypes: float64(1), int64(5), object(2)
+memory usage: 49.0+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hold_times_joined</span><span class="p">[</span><span class="n">hold_times_joined</span><span class="o">.</span><span class="n">num_puzzles</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="n">hold_times_joined</span><span class="p">[</span><span class="n">hold_times_joined</span><span class="p">[[</span><span class="s1">&#39;pieces_d1&#39;</span><span class="p">,</span> <span class="s1">&#39;pieces_d2&#39;</span><span class="p">,</span> <span class="s1">&#39;pieces_d3&#39;</span><span class="p">,</span> <span class="s1">&#39;pieces_d4&#39;</span><span class="p">,</span> <span class="s1">&#39;num_puzzles&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -413,123 +646,274 @@ title="Print to PDF"
       <th>memberID</th>
       <th>holdtime</th>
       <th>puzzlepack</th>
-      <th>pack_name</th>
+      <th>pieces_d1</th>
+      <th>pieces_d2</th>
+      <th>pieces_d3</th>
+      <th>pieces_d4</th>
+      <th>num_puzzles</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#packs_info = pd.read_csv(r&#39;data/packs_cleaned_dropna.csv&#39;, index_col = 0)</span>
+<span class="n">packs_info</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[[</span><span class="s1">&#39;puzzlepack&#39;</span><span class="p">,</span> <span class="s1">&#39;brand_1&#39;</span><span class="p">,</span>	<span class="s1">&#39;brand_2&#39;</span><span class="p">,</span>	<span class="s1">&#39;piece_count_1&#39;</span><span class="p">,</span> <span class="s1">&#39;piece_count_2&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;difficulty_rating_1&#39;</span><span class="p">,</span>	<span class="s1">&#39;difficulty_rating_2&#39;</span><span class="p">,</span>	<span class="s1">&#39;num_puzzles&#39;</span><span class="p">]]</span>
+<span class="n">packs_info</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>puzzlepack</th>
+      <th>brand_1</th>
+      <th>brand_2</th>
       <th>piece_count_1</th>
       <th>piece_count_2</th>
       <th>difficulty_rating_1</th>
       <th>difficulty_rating_2</th>
-      <th>brand_1</th>
-      <th>brand_2</th>
       <th>num_puzzles</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>member1</td>
-      <td>2.939411</td>
       <td>Artifact Puzzles Justin Hillgrove Word Travels...</td>
-      <td>Artifact Puzzles Justin Hillgrove Word Travels...</td>
+      <td>Artifact</td>
+      <td>Artifact</td>
       <td>456</td>
       <td>548</td>
       <td>1</td>
       <td>2</td>
-      <td>Artifact</td>
-      <td>Artifact</td>
       <td>2</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>member1</td>
-      <td>0.998885</td>
       <td>DaVici Puzzles Full Moon Feast DaVici Puzzles ...</td>
-      <td>DaVici Puzzles Full Moon Feast DaVici Puzzles ...</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
       <td>195</td>
       <td>220</td>
       <td>1</td>
       <td>3</td>
-      <td>DaVici</td>
-      <td>DaVici</td>
       <td>2</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>member1</td>
-      <td>10.865032</td>
       <td>DaVici Puzzles Flying Frigate DaVici Puzzles H...</td>
-      <td>DaVici Puzzles Flying Frigate DaVici Puzzles H...</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
       <td>332</td>
       <td>164</td>
       <td>1</td>
       <td>1</td>
-      <td>DaVici</td>
-      <td>DaVici</td>
       <td>2</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>member1</td>
-      <td>22.083971</td>
       <td>Liberty Puzzles Haeckel Hummingbirds Nautilus ...</td>
-      <td>Liberty Puzzles Haeckel Hummingbirds Nautilus ...</td>
+      <td>Liberty</td>
+      <td>Nautilus</td>
       <td>485</td>
       <td>222</td>
       <td>2</td>
       <td>2</td>
-      <td>Liberty</td>
-      <td>Nautilus</td>
       <td>2</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>member1</td>
-      <td>5.077603</td>
       <td>DaVici Puzzles Diana Zimens City Of Cats</td>
-      <td>DaVici Puzzles Diana Zimens City Of Cats</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
       <td>700</td>
       <td>0</td>
       <td>2</td>
       <td>2</td>
-      <td>DaVici</td>
-      <td>DaVici</td>
       <td>1</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<section id="first-feature-is-number-of-pieces-for-each-difficulty-d1-d2-d3-d4">
-<h2>First feature is number of pieces for each difficulty d1, d2, d3, d4<a class="headerlink" href="#first-feature-is-number-of-pieces-for-each-difficulty-d1-d2-d3-d4" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># taking code from jon&#39;s branch</span>
-<span class="n">pieces_by_difficulty</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df_cleaned</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;pack_name&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;pieces_d1&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;pieces_d2&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;pieces_d3&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;pieces_d4&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s1">&#39;num_puzzles&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;num_puzzles&#39;</span><span class="p">]</span>
-    <span class="p">}</span>
-    
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">]):</span>
-        <span class="n">out</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;pieces_d</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;difficulty_rating_1&quot;</span><span class="p">]))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">]</span>
-    
-    <span class="k">if</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;num_puzzles&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="n">out</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;pieces_d</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;difficulty_rating_2&quot;</span><span class="p">]))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;piece_count_2&#39;</span><span class="p">]</span>
-        
-    <span class="n">pieces_by_difficulty</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hold_times_diff</span> <span class="o">=</span> <span class="n">hold_times_joined</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">packs_info</span><span class="p">[[</span><span class="s1">&#39;puzzlepack&#39;</span><span class="p">,</span> <span class="s1">&#39;difficulty_rating_1&#39;</span><span class="p">,</span> <span class="s1">&#39;difficulty_rating_2&#39;</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;puzzlepack&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;puzzlepack&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">hold_times_diff</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 36641275 entries, 0 to 36641274
+Data columns (total 10 columns):
+ #   Column               Dtype  
+---  ------               -----  
+ 0   memberID             object 
+ 1   holdtime             float64
+ 2   puzzlepack           object 
+ 3   pieces_d1            int64  
+ 4   pieces_d2            int64  
+ 5   pieces_d3            int64  
+ 6   pieces_d4            int64  
+ 7   num_puzzles          int64  
+ 8   difficulty_rating_1  int64  
+ 9   difficulty_rating_2  int64  
+dtypes: float64(1), int64(7), object(2)
+memory usage: 3.0+ GB
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pieces_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pieces_by_difficulty</span><span class="p">)</span>
-<span class="n">pieces_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hold_times_diff</span><span class="p">[</span><span class="n">hold_times_diff</span><span class="o">.</span><span class="n">difficulty_rating_1</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="o">|</span> <span class="n">hold_times_diff</span><span class="o">.</span><span class="n">difficulty_rating_2</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>memberID</th>
+      <th>holdtime</th>
+      <th>puzzlepack</th>
+      <th>pieces_d1</th>
+      <th>pieces_d2</th>
+      <th>pieces_d3</th>
+      <th>pieces_d4</th>
+      <th>num_puzzles</th>
+      <th>difficulty_rating_1</th>
+      <th>difficulty_rating_2</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#hold_times_diff.to_csv(&#39;data/joined_hold_times_data_all.csv&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hold_times_diff</span><span class="p">[</span><span class="n">hold_times_diff</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>memberID</th>
+      <th>holdtime</th>
+      <th>puzzlepack</th>
+      <th>pieces_d1</th>
+      <th>pieces_d2</th>
+      <th>pieces_d3</th>
+      <th>pieces_d4</th>
+      <th>num_puzzles</th>
+      <th>difficulty_rating_1</th>
+      <th>difficulty_rating_2</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="second-feature-is-counting-total-number-of-pieces-at-pack-level">
+<h2>Second Feature is counting total number of pieces at pack level<a class="headerlink" href="#second-feature-is-counting-total-number-of-pieces-at-pack-level" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># making things at pack level</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_pack&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_pack&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_cleaned</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;num_puzzles&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_pack&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_pack&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_pack&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_2&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_pack&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_2&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">//</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="third-feautre-is-combining-difficulty-and-piece-count-into-a-single-column-values">
+<h2>Third feautre is combining difficulty and piece count into a single column values<a class="headerlink" href="#third-feautre-is-combining-difficulty-and-piece-count-into-a-single-column-values" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># taking code from madalyn&#39;s branch</span>
+<span class="n">pieces_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/pieces_by_puzzle_and_difficulty.csv&#39;</span><span class="p">)</span>
+<span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;pieces_d1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;pieces_d2&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;pieces_d3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;pieces_d4&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span>
+
+<span class="c1"># use box cox method to transform weighted pieces by difficulty</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">power_transform</span> 
+<span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff_transformed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">power_transform</span><span class="p">(</span><span class="n">pieces_df</span><span class="p">[[</span><span class="s1">&#39;w_pieces_diff&#39;</span><span class="p">]],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;box-cox&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pieces_df</span>
 </pre></div>
 </div>
 </div>
@@ -558,6 +942,8 @@ title="Print to PDF"
       <th>pieces_d3</th>
       <th>pieces_d4</th>
       <th>num_puzzles</th>
+      <th>w_pieces_diff</th>
+      <th>w_pieces_diff_transformed</th>
     </tr>
   </thead>
   <tbody>
@@ -569,6 +955,8 @@ title="Print to PDF"
       <td>0</td>
       <td>0</td>
       <td>2</td>
+      <td>1552</td>
+      <td>0.476563</td>
     </tr>
     <tr>
       <th>1</th>
@@ -578,6 +966,8 @@ title="Print to PDF"
       <td>220</td>
       <td>0</td>
       <td>2</td>
+      <td>855</td>
+      <td>-0.550938</td>
     </tr>
     <tr>
       <th>2</th>
@@ -587,6 +977,8 @@ title="Print to PDF"
       <td>0</td>
       <td>0</td>
       <td>2</td>
+      <td>496</td>
+      <td>-1.335665</td>
     </tr>
     <tr>
       <th>3</th>
@@ -596,6 +988,8 @@ title="Print to PDF"
       <td>0</td>
       <td>0</td>
       <td>2</td>
+      <td>1414</td>
+      <td>0.303165</td>
     </tr>
     <tr>
       <th>4</th>
@@ -605,44 +999,79 @@ title="Print to PDF"
       <td>0</td>
       <td>0</td>
       <td>1</td>
+      <td>1400</td>
+      <td>0.284934</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19382</th>
+      <td>Wentworth Puzzles Lars Stewart Rainbow Washi T...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>260</td>
+      <td>280</td>
+      <td>2</td>
+      <td>1900</td>
+      <td>0.871166</td>
+    </tr>
+    <tr>
+      <th>19383</th>
+      <td>Liberty Puzzles Jean Jans The Younger The Batt...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>602</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1806</td>
+      <td>0.769838</td>
+    </tr>
+    <tr>
+      <th>19384</th>
+      <td>Wentworth Puzzles Christopher Rogers The Cove ...</td>
+      <td>500</td>
+      <td>0</td>
+      <td>500</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2000</td>
+      <td>0.975250</td>
+    </tr>
+    <tr>
+      <th>19385</th>
+      <td>Puzzlewood Birds and Flowers JC Ayer Mystery P...</td>
+      <td>300</td>
+      <td>0</td>
+      <td>484</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1752</td>
+      <td>0.709980</td>
+    </tr>
+    <tr>
+      <th>19386</th>
+      <td>Liberty Puzzles Plants And Insects</td>
+      <td>0</td>
+      <td>0</td>
+      <td>568</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1704</td>
+      <td>0.655701</td>
     </tr>
   </tbody>
 </table>
+<p>19387 rows × 8 columns</p>
 </div></div></div>
-</div>
-</section>
-<section id="second-feature-is-counting-total-number-of-pieces-at-pack-level">
-<h2>Second Feature is counting total number of pieces at pack level<a class="headerlink" href="#second-feature-is-counting-total-number-of-pieces-at-pack-level" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># making things at pack level</span>
-<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_pack&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_pack&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_cleaned</span><span class="p">)):</span>
-    <span class="k">if</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;num_puzzles&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_pack&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_pack&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_pack&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;piece_count_2&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_pack&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="s1">&#39;difficulty_rating_2&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">//</span><span class="mi">2</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="third-feautre-is-combining-difficulty-and-piece-count-into-a-single-column-values">
-<h2>Third feautre is combining difficulty and piece count into a single column values<a class="headerlink" href="#third-feautre-is-combining-difficulty-and-piece-count-into-a-single-column-values" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># taking code from madalyn&#39;s branch</span>
-<span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;pieces_d1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;pieces_d2&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;pieces_d3&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;pieces_d4&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span>
-
-<span class="c1"># use box cox method to transform weighted pieces by difficulty</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">power_transform</span> 
-<span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff_transformed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">power_transform</span><span class="p">(</span><span class="n">pieces_df</span><span class="p">[[</span><span class="s1">&#39;w_pieces_diff&#39;</span><span class="p">]],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;box-cox&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -650,7 +1079,7 @@ title="Print to PDF"
 <span class="c1"># I just picked an arbitrary number of 20 bins, to group the piece difficulty by, this can be improved on</span>
 <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff_transformed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">-</span><span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff_transformed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span><span class="o">/</span><span class="mi">20</span>
 <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff_transformed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff_transformed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">+</span><span class="n">step</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bin&#39;</span> <span class="o">+</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)))]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;bin</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)))]</span>
 
 <span class="c1"># label each puzzle by binned piece &amp; difficulty</span>
 <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;bin_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">pieces_df</span><span class="p">[</span><span class="s1">&#39;w_pieces_diff_transformed&#39;</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">bins</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">,</span> <span class="n">include_lowest</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -808,6 +1237,264 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_features_combined</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pack_name</th>
+      <th>piece_count_1</th>
+      <th>piece_count_2</th>
+      <th>difficulty_rating_1</th>
+      <th>difficulty_rating_2</th>
+      <th>brand_1</th>
+      <th>brand_2</th>
+      <th>num_puzzles</th>
+      <th>pieces_d1</th>
+      <th>pieces_d2</th>
+      <th>pieces_d3</th>
+      <th>pieces_d4</th>
+      <th>piece_count_pack</th>
+      <th>difficulty_rating_pack</th>
+      <th>w_pieces_diff_transformed</th>
+      <th>holdtime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Artifact Puzzles Justin Hillgrove Word Travels...</td>
+      <td>456</td>
+      <td>548</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Artifact</td>
+      <td>Artifact</td>
+      <td>2</td>
+      <td>456</td>
+      <td>548</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1004</td>
+      <td>1</td>
+      <td>0.476563</td>
+      <td>2.939411</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>DaVici Puzzles Full Moon Feast DaVici Puzzles ...</td>
+      <td>195</td>
+      <td>220</td>
+      <td>1</td>
+      <td>3</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
+      <td>2</td>
+      <td>195</td>
+      <td>0</td>
+      <td>220</td>
+      <td>0</td>
+      <td>415</td>
+      <td>2</td>
+      <td>-0.550938</td>
+      <td>0.998885</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>DaVici Puzzles Flying Frigate DaVici Puzzles H...</td>
+      <td>332</td>
+      <td>164</td>
+      <td>1</td>
+      <td>1</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
+      <td>2</td>
+      <td>496</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>496</td>
+      <td>1</td>
+      <td>-1.335665</td>
+      <td>10.865032</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Liberty Puzzles Haeckel Hummingbirds Nautilus ...</td>
+      <td>485</td>
+      <td>222</td>
+      <td>2</td>
+      <td>2</td>
+      <td>Liberty</td>
+      <td>Nautilus</td>
+      <td>2</td>
+      <td>0</td>
+      <td>707</td>
+      <td>0</td>
+      <td>0</td>
+      <td>707</td>
+      <td>2</td>
+      <td>0.303165</td>
+      <td>22.083971</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>DaVici Puzzles Diana Zimens City Of Cats</td>
+      <td>700</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>DaVici</td>
+      <td>DaVici</td>
+      <td>1</td>
+      <td>0</td>
+      <td>700</td>
+      <td>0</td>
+      <td>0</td>
+      <td>700</td>
+      <td>2</td>
+      <td>0.284934</td>
+      <td>5.077603</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19382</th>
+      <td>Wentworth Puzzles Lars Stewart Rainbow Washi T...</td>
+      <td>280</td>
+      <td>260</td>
+      <td>4</td>
+      <td>3</td>
+      <td>Wentworth</td>
+      <td>Wentworth</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>260</td>
+      <td>280</td>
+      <td>540</td>
+      <td>3</td>
+      <td>0.871166</td>
+      <td>14.738673</td>
+    </tr>
+    <tr>
+      <th>19383</th>
+      <td>Liberty Puzzles Jean Jans The Younger The Batt...</td>
+      <td>602</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+      <td>Liberty</td>
+      <td>Liberty</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>602</td>
+      <td>0</td>
+      <td>602</td>
+      <td>3</td>
+      <td>0.769838</td>
+      <td>32.657524</td>
+    </tr>
+    <tr>
+      <th>19384</th>
+      <td>Wentworth Puzzles Christopher Rogers The Cove ...</td>
+      <td>500</td>
+      <td>500</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Wentworth</td>
+      <td>Wentworth</td>
+      <td>2</td>
+      <td>500</td>
+      <td>0</td>
+      <td>500</td>
+      <td>0</td>
+      <td>1000</td>
+      <td>2</td>
+      <td>0.975250</td>
+      <td>12.775870</td>
+    </tr>
+    <tr>
+      <th>19385</th>
+      <td>Puzzlewood Birds and Flowers JC Ayer Mystery P...</td>
+      <td>484</td>
+      <td>300</td>
+      <td>3</td>
+      <td>1</td>
+      <td>Other-Hand-cut</td>
+      <td>Other-Hand-cut</td>
+      <td>2</td>
+      <td>300</td>
+      <td>0</td>
+      <td>484</td>
+      <td>0</td>
+      <td>784</td>
+      <td>2</td>
+      <td>0.709980</td>
+      <td>6.884502</td>
+    </tr>
+    <tr>
+      <th>19386</th>
+      <td>Liberty Puzzles Plants And Insects</td>
+      <td>568</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+      <td>Liberty</td>
+      <td>Liberty</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>568</td>
+      <td>0</td>
+      <td>568</td>
+      <td>3</td>
+      <td>0.655701</td>
+      <td>13.694302</td>
+    </tr>
+  </tbody>
+</table>
+<p>19387 rows × 16 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
